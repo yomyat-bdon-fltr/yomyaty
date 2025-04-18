@@ -1,0 +1,258 @@
+:root {
+    --primary-color: #1e90ff;
+    --bg-light: #f9f9f9;
+    --text-dark: #222;
+    --text-light: #fff;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    overflow: hidden;
+    direction: rtl;
+  }
+
+  body.loaded {
+    overflow: auto;
+  }
+
+  .loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 8px;
+  }
+
+  .loading-spinner div {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    animation: bounce 0.8s infinite ease-in-out;
+  }
+
+  .loading-spinner div:nth-child(1) {
+    animation-delay: -0.4s;
+  }
+
+  .loading-spinner div:nth-child(2) {
+    animation-delay: -0.2s;
+  }
+
+  .loading-spinner div:nth-child(3) {
+    animation-delay: 0s;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    padding: 1rem 2rem;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  nav .logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  nav ul li a:hover {
+    color: var(--primary-color);
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  .detail-container {
+    padding: 2rem 1rem;
+    max-width: 800px;
+    margin: auto;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  img[alt="loading"] {
+    display: block;
+    margin: 0 auto;
+  }
+  img:hover{
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+  }
+  .detail-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+    color: var(--primary-color);
+    text-align: center;
+  }
+
+  .detail-date {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .detail-content h3 {
+    color: #1e90ff;
+    font-size: 1.3rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .detail-content p {
+    margin-bottom: 1.4rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #333;
+  }
+
+  .back-button {
+    display: block;
+    width: fit-content;
+    margin: 2rem auto 0;
+    padding: 0.6rem 1.4rem;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .back-button:hover {
+    background: #1c7ed6;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem 0;
+    font-size: 0.9rem;
+    color: #999;
+    background-color: #f1f1f1;
+  }
+
+  @media (max-width: 600px) {
+    nav ul {
+      gap: 1rem;
+    }
+  }
+
+/* 🌙 Dark Mode */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+/* Loading Spinner */
+body.dark-mode .loading-spinner div {
+  background-color: #bbb;
+}
+
+/* Navigation */
+body.dark-mode nav {
+  background-color: #1e1e1e;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode nav .logo {
+  color: var(--primary-color);
+}
+
+body.dark-mode nav ul li a {
+  color: #e0e0e0;
+}
+
+body.dark-mode nav ul li a:hover {
+  color: var(--primary-color);
+}
+
+/* Main Content */
+body.dark-mode .detail-title {
+  color: var(--primary-color);
+}
+
+body.dark-mode .detail-date {
+  color: #bbb;
+}
+
+body.dark-mode .detail-content h3 {
+  color: var(--primary-color);
+}
+
+body.dark-mode .detail-content p {
+  color: #ddd;
+}
+
+body.dark-mode .back-button {
+  background: var(--primary-color);
+  color: white;
+}
+
+body.dark-mode .back-button:hover {
+  background: #1c7ed6;
+}
+
+/* Footer */
+body.dark-mode footer {
+  background-color: #1e1e1e;
+  color: #bbb;
+}
+
+/* Links in content */
+body.dark-mode .detail-content a {
+  color: var(--primary-color);
+}
+
+body.dark-mode .detail-content a:hover {
+  color: #1c7ed6;
+  text-decoration: underline;
+}
