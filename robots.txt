@@ -3,4 +3,4 @@ Allow: /
 Disallow: /data/
 Disallow: /image/
 
-Sitemap: https://yourdomain.com/sitemap.xml
+#Sitemap: https://yourdomain.com/sitemap.xml
