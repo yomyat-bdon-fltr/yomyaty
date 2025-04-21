@@ -11,8 +11,15 @@ html{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
-  scroll-behavior: smooth;
+  font-family: 'Inter', 'Tajawal', sans-serif;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 ::-webkit-scrollbar {
   width: 10px;
@@ -36,6 +43,7 @@ body {
   background-color: var(--bg-light);
   color: var(--text-dark);
   overflow: hidden;
+  animation: fadeIn 1.5s ease-in-out;
 }
 
 body.loaded {
@@ -45,10 +53,12 @@ body.loaded {
 /* circle Animation */
 .circle-div {
   position: fixed;
-  z-index: 2001;
-  width: 100%;
-  height: 100dvh;
-  background-color: #ffffff;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff;
+    z-index: 9999;
   pointer-events: none;
   clip-path: circle(100% at 50% 50%);
   animation: revealCircle 2s ease-in-out forwards;
@@ -76,7 +86,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  animation: fadeInDown 1s ease-in-out;
+  animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 nav .logo {
@@ -96,10 +106,27 @@ nav ul li a {
   color: var(--text-dark);
   font-weight: 500;
   transition: color 0.2s ease;
+  position: relative;
 }
 
 nav ul li a:hover {
   color: var(--primary-color);
+}
+
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+  left: 0;
 }
 
 @keyframes fadeInDown {
@@ -130,8 +157,9 @@ header .overlay {
   border-radius: 12px;
   text-align: center;
   z-index: 1;
-  animation: trans 3s infinite;
+  animation: subtlePulse 8s ease-in-out infinite;
   cursor: pointer;
+  max-width: 90%;
 }
 
 header .overlay:hover {
@@ -158,15 +186,12 @@ header p {
   }
 }
 
-@keyframes trans {
-  0% {
+@keyframes subtlePulse {
+  0%, 100% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
+    transform: scale(1.02);
   }
 }
 
@@ -200,7 +225,7 @@ header p {
   opacity: 0;
   animation: blob linear forwards;
   animation-timeline: view();
-  animation-range: entry 0%;
+  animation-range: entry 0% cover 20%;
 }
 
 /* Episodes */
@@ -219,10 +244,11 @@ header p {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  opacity: 0;
   animation: blob linear forwards;
   animation-timeline: view();
-  animation-range: entry 0%;
+  animation-range: entry 0% cover 15%;
+  animation-delay: calc(var(--index) * 0.1s);
+  opacity: 0;
 }
 
 @keyframes blob {
@@ -237,7 +263,7 @@ header p {
 }
 
 .episode-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-50px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
@@ -267,13 +293,16 @@ header p {
 
 .read-more {
   color: var(--primary-color);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-block;
+    transition: transform 0.2s ease;
 }
 
 .read-more:hover {
   text-decoration: underline;
+    transform: translateX(-5px);
 }
 
 @keyframes fadeInUp {
@@ -292,9 +321,9 @@ header p {
   background: white;
   padding: 3rem 1rem;
   text-align: center;
-  animation: riseAndSet 2s linear 0s 1 normal none;
+  animation: riseAndSet 2s ease-out 0s 1 normal none;
   animation-timeline: view();
-  animation-range: entry 0%;
+  animation-range: entry 0% cover 20%;
 }
 
 @keyframes riseAndSet {
@@ -319,9 +348,6 @@ header p {
     opacity: 1;
   }
 }
-
-
-
 #about h2 {
   font-size: 2rem;
   font-weight: 700;
@@ -336,42 +362,6 @@ header p {
   line-height: 1.7;
 }
 
-/* Detail Page */
-#detail-page {
-  display: none;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.detail-container {
-  padding: 2rem 1rem;
-  max-width: 800px;
-  margin: auto;
-}
-
-.detail-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.detail-date {
-  color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
-}
-
-.detail-image {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-}
-
-.detail-content p {
-  margin-bottom: 1.2rem;
-  line-height: 1.7;
-}
 
 .back-button {
   display: inline-block;
@@ -382,11 +372,15 @@ header p {
   text-decoration: none;
   border-radius: 6px;
   font-weight: 600;
-  transition: background 0.2s;
+  transition: 0.2s;
+  border: 2px solid transparent;
 }
 
 .back-button:hover {
-  background: #1c7ed6;
+  background: transparent;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
 }
 
 /* Footer */
@@ -407,32 +401,36 @@ body.dark-mode {
 
 body.dark-mode nav {
   background-color: #1e1e1e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 body.dark-mode nav ul li a {
   color: #ccc;
 }
 
-body.dark-mode nav ul li a:hover {
-  color: var(--primary-color);
-}
-
 body.dark-mode .logo {
   color: var(--primary-color);
 }
 
-body.dark-mode header .overlay h1,
-body.dark-mode header .overlay p {
-  color: #fff;
+body.dark-mode .episode-card {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-body.dark-mode .episodes-container {
-  color: #eee;
+body.dark-mode .episode-card:hover {
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.08);
 }
 
-body.dark-mode footer {
-  background-color: #121212;
-  color: #bbb;
+body.dark-mode .episode-title {
+  color: #90c7ff;
+}
+
+body.dark-mode .episode-date {
+  color: #aaa;
+}
+
+body.dark-mode .episode-excerpt {
+  color: #ddd;
 }
 
 body.dark-mode #about {
@@ -440,67 +438,65 @@ body.dark-mode #about {
   color: #ddd;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  nav ul {
-    gap: 1rem;
-  }
-
-  header h1 {
-    font-size: 2rem;
-  }
-
-  header p {
-    font-size: 1rem;
-  }
-  .container{
-    
-    height: 100%;
-  }
-}
-/* 🌙 Dark Mode */
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
-}
-
-/* الحاوية */
-body.dark-mode .episodes-container {
-  animation: fadeInUp 1.5s ease-in-out;
-}
-
-/* كارت الحلقة */
-body.dark-mode .episode-card {
-  background-color: #1e1e1e;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-body.dark-mode .episode-card:hover {
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.08);
-}
-
-/* المحتوى داخل الكارت */
-body.dark-mode .episode-title {
-  color: #90c7ff;
-}
-
-body.dark-mode .episode-date {
+body.dark-mode #about p {
   color: #bbb;
 }
 
-body.dark-mode .episode-excerpt {
-  color: #ddd;
+body.dark-mode footer {
+  background-color: #121212;
+  color: #bbb;
 }
 
-body.dark-mode .read-more {
-  color: #42a5f5;
-}
-
-body.dark-mode .read-more:hover {
-  color: #64b5f6;
-  text-decoration: underline;
-  
-}
-body.dark-mode .circle-div{
+body.dark-mode .circle-div {
   background-color: #121212;
 }
+/*Responsive Design */
+  @media (max-width: 768px) {
+    nav {
+      padding: 0.8rem;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  
+    nav ul {
+      gap: 1rem;
+    }
+  
+    header {
+      height: 85vh;
+    }
+  
+    header h1 {
+      font-size: 2.2rem;
+    }
+  
+    header p {
+      font-size: 1.1rem;
+    }
+  
+    .container {
+      margin: 3rem auto;
+    }
+  
+    .episodes-container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.8rem;
+    }
+  
+    header p {
+      font-size: 1rem;
+    }
+  
+    .container h2, #about h2 {
+      font-size: 1.6rem;
+    }
+  
+    .episode-content {
+      padding: 1rem;
+    }
+  }
