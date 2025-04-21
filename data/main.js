@@ -43,27 +43,30 @@ function showEpisodeDetail(id) {
   location.href = `episodes/epsoids.html?episodeId=${id}`;
 }
 
+
+function showLoadingAnimation() {
+  if (sessionStorage.getItem("loaded") === "true") {
+    document.querySelector('.circle-div').style.display = 'none';
+  }
+}
+
 // عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', () => {
-  // إبقاء الـ spinner ظاهرًا 1 ثانية
+  showLoadingAnimation(); // ✅ استدعاء الدالة
+
   setTimeout(() => {
     document.body.classList.add('loaded');
+    sessionStorage.setItem("loaded", "true");
 
-    const spinner = document.querySelector('.loading-spinner');
-    if (spinner) spinner.style.display = 'none';
-
-    // لو فيه أنيميشن أبواب
-    document.querySelectorAll('.door').forEach(door => {
-      door.classList.add('open');
-    });
-
-    setTimeout(() => {
-      document.querySelectorAll('.door').forEach(door => {
-        door.style.display = 'none';
+    // التعامل مع أنيميشن الدائرة
+    const circleDiv = document.querySelector('.circle-div');
+    if (circleDiv && sessionStorage.getItem("loaded") !== "true") {
+      circleDiv.addEventListener('animationend', () => {
+        circleDiv.style.display = 'none';
       });
-    }, 1000);
+    }
 
-    // تحميل الحلقات بعد انتهاء التحميل
+    // تحميل الحلقات
     fetchEpisodes();
   }, 1000);
 });
