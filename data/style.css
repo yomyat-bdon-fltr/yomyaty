@@ -322,7 +322,7 @@ header p {
   padding: 3rem 1rem;
   text-align: center;
   opacity: 0;
-  animation: riseAndSet 2s ease-out 0s 1 normal none;
+  animation: riseAndSet 2s ease-out forwards;
   animation-timeline: view();
   animation-range: entry 0% cover 20%;
 }
