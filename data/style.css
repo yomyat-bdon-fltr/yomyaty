@@ -197,6 +197,7 @@ header p {
   margin-bottom: 50px;
   font-size: 2rem;
   font-weight: 700;
+  opacity: 0;
   animation: blob linear forwards;
   animation-timeline: view();
   animation-range: entry 0%;
@@ -218,6 +219,7 @@ header p {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  opacity: 0;
   animation: blob linear forwards;
   animation-timeline: view();
   animation-range: entry 0%;
