@@ -16,7 +16,7 @@ function fetchEpisodes() {
 // وظيفة لعرض الحلقات
 function displayEpisodes(episodes) {
   const episodesList = document.getElementById('episodes-list');
-  console.log(episodes);
+
 
   episodesList.innerHTML = '';
 
